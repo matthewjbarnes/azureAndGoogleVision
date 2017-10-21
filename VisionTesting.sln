@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureVision", "AzureVisionImage\AzureVision.csproj", "{EF893AD7-4ACF-41A0-B2F3-ACAF3E6DE2B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleVision", "GoogleVisionImage\GoogleVision.csproj", "{196055A2-AE1C-4A2E-B5C0-30894C9771C4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF893AD7-4ACF-41A0-B2F3-ACAF3E6DE2B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF893AD7-4ACF-41A0-B2F3-ACAF3E6DE2B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF893AD7-4ACF-41A0-B2F3-ACAF3E6DE2B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF893AD7-4ACF-41A0-B2F3-ACAF3E6DE2B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{196055A2-AE1C-4A2E-B5C0-30894C9771C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{196055A2-AE1C-4A2E-B5C0-30894C9771C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{196055A2-AE1C-4A2E-B5C0-30894C9771C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{196055A2-AE1C-4A2E-B5C0-30894C9771C4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
