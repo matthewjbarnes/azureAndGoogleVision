@@ -47,8 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AzureVision.cs" />
-    <Compile Include="AzureVisionInput.cs" />
-    <Compile Include="IAzureVision.cs" />
     <Compile Include="ImageHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,6 +56,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\Assets\cruiseNow.jpg">
+      <Link>Assets\cruiseNow.jpg</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Assets\cruiseTopGun.jpg">
+      <Link>Assets\cruiseTopGun.jpg</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Assets\Microsoft.png">
+      <Link>Assets\Microsoft.png</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\Assets\test1.png">
       <Link>Assets\test1.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

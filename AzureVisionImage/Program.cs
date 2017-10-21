@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using DBCloud.ExternalServices.AzureVision;
 using Newtonsoft.Json.Linq;
 
 namespace AzureVisionImage
@@ -19,16 +15,23 @@ namespace AzureVisionImage
 		static async Task MainAsync()
 		{
 			// Extract OCR
-			var ocrInput = new AzureVisionInput() {Filepath = "Assets\\test1.png"};
-			var service = new AzureVision();
-			var jsonResult = await service.ExtractOcr(ocrInput);
-			JObject parsed = JObject.Parse(jsonResult);
-			foreach (var pair in parsed)
+			using (var service = new AzureVision())
 			{
-				Console.WriteLine("{0}: {1}", pair.Key, pair.Value);
-			}
+				var json = await service.OcrRecog("Assets\\test1.png");
+				JObject parsed = JObject.Parse(json);
+				foreach (var pair in parsed)
+				{
+					Console.WriteLine("{0}: {1}", pair.Key, pair.Value);
+				}
 
-			// Analyse Image
+				// Analyse Image
+				json = await service.ImageRecog("Assets\\Microsoft.png");
+				parsed = JObject.Parse(json);
+				foreach (var pair in parsed)
+				{
+					Console.WriteLine("{0}: {1}", pair.Key, pair.Value);
+				}
+			}
 		}
 	}
 }
