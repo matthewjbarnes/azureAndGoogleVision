@@ -8,13 +8,14 @@ namespace AzureVisionImage
 	{
 		static void Main(string[] args)
 		{
-			Console.WriteLine("Azure Vision OCR .......");
+			Console.WriteLine("Azure Vision Services .......");
 			MainAsync().Wait();
 		}
 
 		static async Task MainAsync()
 		{
 			// Extract OCR
+			Console.WriteLine("Extracting OCR .......");
 			using (var service = new AzureVision())
 			{
 				var json = await service.OcrRecog("Assets\\test1.png");
@@ -25,6 +26,7 @@ namespace AzureVisionImage
 				}
 
 				// Analyse Image
+				Console.WriteLine("Analysing Image .......");
 				json = await service.ImageRecog("Assets\\Microsoft.png");
 				parsed = JObject.Parse(json);
 				foreach (var pair in parsed)
