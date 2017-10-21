@@ -61,6 +61,8 @@ namespace AzureVisionImage
 		/// <summary> Get OCR from a input image </summary>
 		public async Task<string> OcrRecog(string filepath)
 		{
+			Console.WriteLine("Extracting OCR .......");
+
 			if (null == filepath)
 			{
 				return Empty;
@@ -86,8 +88,10 @@ namespace AzureVisionImage
 		}
 
 		/// <summary> Get image classification from a input image </summary>
-		public async Task<string> ImageRecog(string filepath)
+		public async Task<string> ImageRecog(string filepath, string type)
 		{
+			Console.WriteLine($"Analysing Image {type}.......");
+
 			if (null == filepath)
 			{
 				return Empty;

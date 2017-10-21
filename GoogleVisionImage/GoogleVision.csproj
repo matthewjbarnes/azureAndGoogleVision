@@ -113,6 +113,10 @@
       <Link>Assets\cruiseTopGun.jpg</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\Assets\landmark.jpg">
+      <Link>Assets\landmark.jpg</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\Assets\Microsoft.png">
       <Link>Assets\Microsoft.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

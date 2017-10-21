@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Google.Cloud.Vision.V1;
 using Newtonsoft.Json;
 using Shared;
-using static System.String;
 
 namespace GoogleVisionImage
 {
@@ -16,6 +12,7 @@ namespace GoogleVisionImage
 		https://cloud.google.com/vision/docs/
 		https://cloud.google.com/functions/docs/tutorials/ocr
 	  */
+
 	public class GoogleVision : IDisposable
 	{
 		private readonly HttpClient client;
@@ -31,47 +28,45 @@ namespace GoogleVisionImage
 		{
 		}
 
-		/// <summary> URI for Image Analyse service </summary>
-		private string getAnalyseUri()
-		{
-			string requestParameters = "visualFeatures=Categories,Description,Color,Adult,ImageType,Faces&language=en&details=Celebrities";
-			return "https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze" + "?" + requestParameters;
-		}
-
 		/// <summary> URI for OCR service </summary>
-		private string getOcrUri()
+		private string Uri()
 		{
 			return "https://vision.googleapis.com/v1/images:annotate?key=" + SubscriptionKey;
 		}
 
-
-		/// <summary> Get OCR from a input image </summary>
-		public async Task<string> OcrRecog(string filepath)
+		/// <summary> Get data from a input image </summary>
+		public async Task<string> ImageRecog(string filepath, string recogType)
 		{
-			var imagetxt = ImageHelper.GetImageAsBase64String(filepath);
-			var feature = new Feature() {type = "DOCUMENT_TEXT_DETECTION"};
-			var imageData = new Image() {content = imagetxt};
-			var request = new Request() {image = imageData, features = new List<Feature>() {feature}};
-			var rootObj = new RootObject() {requests = new List<Request>(){request}};
-			var json = JsonConvert.SerializeObject(rootObj);
+			Console.WriteLine($"Extracting Image Regoc for {recogType} .......");
 
+			var imagetxt = ImageHelper.GetImageAsBase64String(filepath);
+			var feature = new Feature() { type = recogType };
+			var imageData = new Image() { content = imagetxt };
+			var request = new Request() { image = imageData, features = new List<Feature>() { feature } };
+			var rootObj = new RootObject() { requests = new List<Request>() { request } };
+			var json = JsonConvert.SerializeObject(rootObj);
 
 			// Execute the REST API call.
 			var stringContent = new StringContent(json);
-			var uri = getOcrUri();
-			var response = await client.PostAsync(uri, stringContent);
+			var response = await client.PostAsync(Uri(), stringContent);
 
 			// Get the JSON response.
 			var result = await response.Content.ReadAsStringAsync();
 
 			return result;
 		}
+	}
 
-		/// <summary> Get data from a input image </summary>
-		public async Task<string> ImageRecog(string filepath)
-		{
-			return Empty;
-		}
+	public static class ImageRecogType
+	{
+		public static string IMAGE_PROPERTIES = "IMAGE_PROPERTIES";
+		public static string FACE_DETECTION = "FACE_DETECTION";
+		public static string LOGO_DETECTION = "LOGO_DETECTION";
+		public static string LABEL_DETECTION = "LABEL_DETECTION";
+		public static string CROP_HINTS = "CROP_HINTS";
+		public static string LANDMARK_DETECTION = "LANDMARK_DETECTION";
+		public static string SAFE_SEARCH_DETECTION = "SAFE_SEARCH_DETECTION";
+		public static string DOCUMENT_TEXT_DETECTION = "DOCUMENT_TEXT_DETECTION";
 	}
 
 
