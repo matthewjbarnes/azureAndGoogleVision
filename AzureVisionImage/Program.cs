@@ -16,25 +16,48 @@ namespace AzureVisionImage
 		{
 			using (var service = new AzureVision())
 			{
-				// Extract OCR
-				var json = await service.OcrRecog("Assets\\test1.png");
-				WriteJson(json);
+				while (true)
+				{
+					Console.WriteLine("1. OCR");
+					Console.WriteLine("2. Logo");
+					Console.WriteLine("3. Cruise Young");
+					Console.WriteLine("4. Cruise Now");
+					Console.WriteLine("5. Landmark");
+	
+					var result = Console.ReadLine();
 
-				// Analyse Image - Logo
-				json = await service.ImageRecog("Assets\\Microsoft.png", "Logo");
-				WriteJson(json);
+					var json = String.Empty;
+					switch (result)
+					{
+						// OCR
+						case "1":
+							json = await service.OcrRecog("Assets\\test1.png");
+							break;
 
-				// Analyse Image - Face Younger
-				json = await service.ImageRecog("Assets\\cruiseTopGun.jpg", "Face");
-				WriteJson(json);
+						// Logo
+						case "2":
+							json = await service.ImageRecog("Assets\\Microsoft.png", "Logo");
+							break;
 
-				// Analyse Image - Face Older (Now)
-				json = await service.ImageRecog("Assets\\cruiseNow.jpg", "Face");
-				WriteJson(json);
+						// Face Younger
+						case "3":
+							json = await service.FaceRecog("Assets\\cruiseTopGun.jpg", "Face");
+							break;
 
-				// Analyse Image - Landmark
-				json = await service.ImageRecog("Assets\\landmark.jpg", "Landmark");
-				WriteJson(json);
+						// Face Older (Now)
+						case "4":
+							json = await service.FaceRecog("Assets\\cruiseNow.jpg", "Face");
+							break;
+
+						// Landmark
+						case "5":
+							json = await service.ImageRecog("Assets\\landmark.jpg", "Landmark");
+							break;
+					}
+
+					// Output result
+					WriteJson(json);
+				}
 			}
 		}
 

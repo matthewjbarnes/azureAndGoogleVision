@@ -43,9 +43,16 @@ namespace AzureVisionImage
 		}
 
 		/// <summary> URI for Image Analyse service </summary>
-		private string getAnalyseUri()
+		private string getFaceUri()
 		{
 			string requestParameters = "visualFeatures=Categories,Description,Color,Adult,ImageType,Faces&language=en&details=Celebrities";
+			return "https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze" + "?" + requestParameters;
+		}
+
+		/// <summary> URI for Image Analyse service </summary>
+		private string getAnalyseUri()
+		{
+			string requestParameters = "visualFeatures=Categories,Description,Color,Adult,ImageType&language=en";
 			return "https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze" + "?" + requestParameters;
 		}
 
@@ -55,6 +62,7 @@ namespace AzureVisionImage
 			string requestParameters = "language=unk&detectOrientation=true";
 			return "https://westus.api.cognitive.microsoft.com/vision/v1.0/ocr" + "?" + requestParameters;
 		}
+
 
 		public void Dispose() { }
 
@@ -108,6 +116,35 @@ namespace AzureVisionImage
 
 				// Execute the REST API call.
 				var response = await client.PostAsync(getAnalyseUri(), content);
+
+				// Get the JSON response.
+				result = await response.Content.ReadAsStringAsync();
+			}
+
+			return result;
+		}
+
+		/// <summary> Get image classification from a input image </summary>
+		public async Task<string> FaceRecog(string filepath, string type)
+		{
+			Console.WriteLine($"Analysing Image {type}.......");
+
+			if (null == filepath)
+			{
+				return Empty;
+			}
+
+			// Request body. Posts a locally stored JPEG image.
+			var byteData = ImageHelper.GetImageAsByteArray(filepath);
+
+			var result = String.Empty;
+			using (ByteArrayContent content = new ByteArrayContent(byteData))
+			{
+				// This example uses content type "application/octet-stream".
+				content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+
+				// Execute the REST API call.
+				var response = await client.PostAsync(getFaceUri(), content);
 
 				// Get the JSON response.
 				result = await response.Content.ReadAsStringAsync();

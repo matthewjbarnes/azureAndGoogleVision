@@ -17,39 +17,67 @@ namespace GoogleVisionImage
 		{
 			using (var service = new GoogleVision())
 			{
-				var result = String.Empty;
+				while (true)
+				{
+					Console.WriteLine("1. OCR");
+					Console.WriteLine("2. Logo");
+					Console.WriteLine("3. Face");
+					Console.WriteLine("4. Image Properties");
+					Console.WriteLine("5. Landmark");
+					Console.WriteLine("6. Racy");
+					Console.WriteLine("7. Label");
+					Console.WriteLine("8. Crop");
 
-				// Image recog - DOCUMENT_TEXT_DETECTION
-				result = await service.ImageRecog("Assets\\test1.png", ImageRecogType.DOCUMENT_TEXT_DETECTION);
-				WriteJson(result);
+					var result = Console.ReadLine();
 
-				// Image recog - IMAGE_PROPERTIES
-				result = await service.ImageRecog("Assets\\cruiseNow.jpg", ImageRecogType.IMAGE_PROPERTIES);
-				WriteJson(result);
+					var json = String.Empty;
+					switch (result)
+					{
+						// OCR
+						case "1":
+							json = await service.ImageRecog("Assets\\test1.png", ImageRecogType.DOCUMENT_TEXT_DETECTION);
+							break;
 
-				// Image recog - FACE_DETECTION
-				result = await service.ImageRecog("Assets\\cruiseNow.jpg", ImageRecogType.FACE_DETECTION);
-				WriteJson(result);
+						// Logo
+						case "2":
+							json = await service.ImageRecog("Assets\\Microsoft.png", ImageRecogType.LOGO_DETECTION);
+							break;
 
-				// Image recog - SAFE_SEARCH_DETECTION
-				result = await service.ImageRecog("Assets\\cruiseNow.jpg", ImageRecogType.SAFE_SEARCH_DETECTION);
-				WriteJson(result);
+						// Face
+						case "3":
+							json = await service.ImageRecog("Assets\\cruiseNow.jpg", ImageRecogType.FACE_DETECTION);
+							break;
 
-				// Image recog - LOGO_DETECTION
-				result = await service.ImageRecog("Assets\\Microsoft.png", ImageRecogType.LOGO_DETECTION);
-				WriteJson(result);
+						// Image properties
+						case "4":
+							json = await service.ImageRecog("Assets\\landmark.jpg", ImageRecogType.IMAGE_PROPERTIES);
+							break;
 
-				// Image recog - LABEL_DETECTION
-				result = await service.ImageRecog("Assets\\cruiseNow.jpg", ImageRecogType.LABEL_DETECTION);
-				WriteJson(result);
+						// Landmark
+						case "5":
+							json = await service.ImageRecog("Assets\\landmark.jpg", ImageRecogType.LANDMARK_DETECTION);
+							break;
 
-				// Image recog - LANDMARK_DETECTION
-				result = await service.ImageRecog("Assets\\landmark.jpg", ImageRecogType.LANDMARK_DETECTION);
-				WriteJson(result);
+						// Safe
+						case "6":
+							json = await service.ImageRecog("Assets\\cruiseNow.jpg", ImageRecogType.SAFE_SEARCH_DETECTION);
+							break;
 
-				// Image recog - CROP_HINTS
-				result = await service.ImageRecog("Assets\\landmark.jpg", ImageRecogType.CROP_HINTS);
-				WriteJson(result);
+						// Label
+						case "7":
+							json = await service.ImageRecog("Assets\\Microsoft.png", ImageRecogType.LABEL_DETECTION);
+							break;
+
+						// Crop
+						case "8":
+							json = await service.ImageRecog("Assets\\cruiseNow.jpg", ImageRecogType.CROP_HINTS);
+							break;
+
+					}
+
+					// Output result
+					WriteJson(json);
+				}
 			}
 		}
 
